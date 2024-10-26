@@ -18,7 +18,7 @@ export default function ProductRail({
   }
 
   return (
-    <div className="content-container py-12 small:py-24">
+    <div className="py-12 content-container small:py-24">
       <div className="flex justify-between mb-8">
         <Text className="txt-xlarge">{collection.title}</Text>
         <InteractiveLink href={`/collections/${collection.handle}`}>
@@ -29,7 +29,6 @@ export default function ProductRail({
         {products &&
           products.map((product) => (
             <li key={product.id}>
-              {/* @ts-ignore */}
               <ProductPreview product={product} region={region} isFeatured />
             </li>
           ))}

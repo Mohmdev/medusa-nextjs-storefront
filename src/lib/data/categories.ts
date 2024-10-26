@@ -13,7 +13,6 @@ export const getCategoriesList = cache(async function (
 ) {
   return sdk.store.category.list(
     // TODO: Look into fixing the type
-    // @ts-ignore
     { limit, offset },
     { next: { tags: ["categories"] } }
   )
@@ -22,10 +21,8 @@ export const getCategoriesList = cache(async function (
 export const getCategoryByHandle = cache(async function (
   categoryHandle: string[]
 ) {
-
   return sdk.store.category.list(
     // TODO: Look into fixing the type
-    // @ts-ignore
     { handle: categoryHandle },
     { next: { tags: ["categories"] } }
   )
