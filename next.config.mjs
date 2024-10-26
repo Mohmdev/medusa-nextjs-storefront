@@ -1,4 +1,4 @@
-const checkEnvVariables = require("./check-env-variables")
+import checkEnvVariables from "./scripts/check-env-variables.js"
 
 checkEnvVariables()
 
@@ -6,8 +6,22 @@ checkEnvVariables()
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+  experimental: {
+    turbo: {
+      rules: {
+        "*.scss": {
+          loaders: ["sass-loader"],
+        },
+      },
+    },
+    scrollRestoration: true,
+  },
+  sassOptions: {
+    silenceDeprecations: ["legacy-js-api"],
+  },
   images: {
+    unoptimized: false,
     remotePatterns: [
       {
         protocol: "http",
@@ -39,6 +53,17 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    "Store Name": process.env.NEXT_PUBLIC_STORE_NAME,
+    "Storefront URL": process.env.NEXT_PUBLIC_BASE_URL,
+    "Admin Dashboard": `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/dashboard`,
+  },
 }
 
-module.exports = nextConfig
+export default nextConfig
+
+console.log(
+  Object.entries(nextConfig.env)
+    .map(([key, value]) => `  - \x1b[34m${key}\x1b[0m: \x1b[96m${value}\x1b[0m`)
+    .join("\n")
+)
